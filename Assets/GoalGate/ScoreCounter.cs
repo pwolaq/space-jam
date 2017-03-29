@@ -14,6 +14,10 @@ public class ScoreCounter : MonoBehaviour {
 		
 	}
 
+	void OnTriggerStay(){
+		Debug.Log ("dupa");
+	}
+
 	private void CheckScoreCondition () {
 		
 	}
