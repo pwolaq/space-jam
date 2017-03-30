@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scores = new Scores ("asd", "qwe");
-		displayScore ();
+		DisplayScore ();
 	}
 	
 	// Update is called once per frame
@@ -18,12 +18,13 @@ public class GameController : MonoBehaviour {
 		
 	}
 
-	public void updateScore(string team) {
+	public void UpdateScore(string team) {
+		Debug.Log ("asd");
 		scores.increment (team);
-		displayScore ();
+		DisplayScore ();
 	}
 
-	void displayScore() {
+	public void DisplayScore() {
 		scoreText.text = this.scores.ToString ();
 	}
 }
