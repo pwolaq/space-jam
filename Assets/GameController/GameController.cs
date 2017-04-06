@@ -1,30 +1,33 @@
-﻿using System.Collections;
+﻿using UnityEngine.SceneManagement;
+using System.Collections;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
 	public GUIText scoreText;
+	public GameObject goalGateA;
+	public GameObject goalGateB;
 
-	private Scores scores;
+	private GameSettings gameSettings;
 
-	// Use this for initialization
 	void Start () {
-		scores = new Scores ("asd", "qwe");
 		DisplayScore ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void BuildGame(Team teamA, Team teamB, int maxScores) {
+		Debug.Log ("ASDASD");
+		teamA.AddGoalGate (goalGateA);
+		teamB.AddGoalGate (goalGateB);
+		this.gameSettings = new GameSettings (teamA, teamB, maxScores);
+		SceneManager.LoadScene (0);
 	}
 
-	public void UpdateScore(string team) {
-		Debug.Log ("asd");
-		scores.increment (team);
+	public void UpdateScore(Team team) {
+		gameSettings.GetTeam(team.GetHashCode()).AddScore ();
 		DisplayScore ();
 	}
 
 	public void DisplayScore() {
-		scoreText.text = this.scores.ToString ();
+		scoreText.text = "0 : 0";
 	}
 }
