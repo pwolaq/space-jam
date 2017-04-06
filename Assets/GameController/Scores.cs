@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿public class Scores
+{
+    public enum Team { A, B };
 
-public class Scores {
-	private Dictionary<string, int> scores = new Dictionary<string, int>();
-	private string teamA;
-	private string teamB;
+    private string[] names;
+    private int[] scores;
 
-	public Scores (string teamA = "teamA", string teamB = "teamB") {
-		this.teamA = teamA;
-		this.teamB = teamB;
-
-		this.scores.Add (teamA, 0);
-		this.scores.Add (teamB, 0);
+	public Scores (string teamA = "teamA", string teamB = "teamB")
+    {
+        names = new string[] { teamA, teamB };
+        scores = new int[] { 0, 0 };
 	}
 
-	public void increment (string team) {
-		scores [team] += 1;
+	public void Increment(int team)
+    {
+        scores[team]++;
 	}
 
-	public string ToString () {
-		return scores[this.teamA] + " : " + scores[this.teamB];
+    override public string ToString()
+    {
+		return scores[(int) Team.A] + " : " + scores[(int) Team.B];
 	}
 }
 
