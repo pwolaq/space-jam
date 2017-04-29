@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: 45be9baa2bf7448de92644dd82a71572
-timeCreated: 1490816064
+timeCreated: 1491589897
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - scoreText: {instanceID: 0}
+  - goalGateA: {instanceID: 0}
+  - goalGateB: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

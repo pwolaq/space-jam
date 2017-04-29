@@ -1,18 +1,19 @@
 ﻿using System;
+using Enums;
 using System.Collections.Generic;
 
 public class GameSettings {
-	private Dictionary<int, Team> teams = new Dictionary<int, Team>();
+	private Dictionary<string, Team> teams = new Dictionary<string, Team>();
 	private int maxScore;
 
 	public GameSettings (Team teamA, Team teamB, int maxScore) {
-		this.teams.Add (teamA.GetHashCode(), teamA);
-		this.teams.Add (teamB.GetHashCode(), teamB);
+		this.teams.Add (Enums.TeamTags.A.ToString(), teamA);
+		this.teams.Add (Enums.TeamTags.B.ToString(), teamB);
 		this.maxScore = maxScore;
 	}
 
-	public Team GetTeam(int team) {
+	public Team GetTeam(string team) {
 		return teams [team];
 	}
 }
-
+	

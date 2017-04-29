@@ -1,7 +1,7 @@
-﻿public class Scores
-{
-    public enum Team { A, B };
+﻿using Enums;
 
+public class Scores
+{
     private string[] names;
     private int[] scores;
 
@@ -18,7 +18,7 @@
 
     override public string ToString()
     {
-		return scores[(int) Team.A] + " : " + scores[(int) Team.B];
+		return scores[(int) Enums.TeamTags.A] + " : " + scores[(int) Enums.TeamTags.B];
 	}
 }
 

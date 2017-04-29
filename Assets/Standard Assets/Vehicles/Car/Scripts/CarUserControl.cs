@@ -6,7 +6,10 @@ namespace UnityStandardAssets.Vehicles.Car
 {
     [RequireComponent(typeof (CarController))]
     public class CarUserControl : MonoBehaviour
-    {
+    {	
+		public string horizontal = "Horizontal_P1";
+		public string vertical = "Vertical_P1";
+
         private CarController m_Car; // the car controller we want to use
 
 
@@ -20,10 +23,10 @@ namespace UnityStandardAssets.Vehicles.Car
         private void FixedUpdate()
         {
             // pass the input to the car!
-            float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            float v = CrossPlatformInputManager.GetAxis("Vertical");
+			float h = CrossPlatformInputManager.GetAxis(horizontal);
+			float v = CrossPlatformInputManager.GetAxis(vertical);
 #if !MOBILE_INPUT
-            float handbrake = CrossPlatformInputManager.GetAxis("Jump");
+            float handbrake = CrossPlatformInputManager.GetAxis("Jump_P1");
             m_Car.Move(h, v, v, handbrake);
 #else
             m_Car.Move(h, v, v, 0f);

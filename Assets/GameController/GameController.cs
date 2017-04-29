@@ -5,25 +5,30 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 	public GUIText scoreText;
-	public GameObject goalGateA;
-	public GameObject goalGateB;
-
 	private GameSettings gameSettings;
+	public static GameController instance ;
 
 	void Start () {
 		DisplayScore ();
 	}
 
+	void Awake() {
+		if (!instance) {
+			instance = this;
+		}
+
+		DontDestroyOnLoad(this) ;
+	}
+
 	public void BuildGame(Team teamA, Team teamB, int maxScores) {
-		Debug.Log ("ASDASD");
-		teamA.AddGoalGate (goalGateA);
-		teamB.AddGoalGate (goalGateB);
+//		teamA.AddGoalGate (goalGateA);
+//		teamB.AddGoalGate (goalGateB);
 		this.gameSettings = new GameSettings (teamA, teamB, maxScores);
 		SceneManager.LoadScene (0);
 	}
 
-	public void UpdateScore(Team team) {
-		gameSettings.GetTeam(team.GetHashCode()).AddScore ();
+	public void UpdateScore(string teamTag) {
+		gameSettings.GetTeam(teamTag).AddScore ();
 		DisplayScore ();
 	}
 
