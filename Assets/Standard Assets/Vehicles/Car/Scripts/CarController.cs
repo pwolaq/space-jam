@@ -54,6 +54,10 @@ namespace UnityStandardAssets.Vehicles.Car
         public float MaxSpeed{get { return m_Topspeed; }}
         public float Revs { get; private set; }
         public float AccelInput { get; private set; }
+		public float jumpForce = 40000;
+		public float nitroForce = 40000;
+		public int nitroBottle = 10;
+
 
         // Use this for initialization
         private void Start()
@@ -125,9 +129,27 @@ namespace UnityStandardAssets.Vehicles.Car
             Revs = ULerp(revsRangeMin, revsRangeMax, m_GearFactor);
         }
 
+		public void Jump(float j) {
+			if (j > 0) {
+				m_Rigidbody.AddForce (Vector3.up * jumpForce);
+			}
+		}
+
+		public void Nitro(float nitro, float footbrake) {
+			Debug.Log (footbrake);
+			if (nitro > 0 && footbrake > 0 && nitroBottle > 0) {
+				m_Rigidbody.AddForce (m_Rigidbody.velocity * 250);
+				nitroBottle -= 2;
+			} else {
+				nitroBottle += 1;
+			}
+		}
+
 
         public void Move(float steering, float accel, float footbrake, float handbrake)
-        {
+        {	
+			Debug.Log (footbrake);
+			Debug.Log (accel);
             for (int i = 0; i < 4; i++)
             {
                 Quaternion quat;
