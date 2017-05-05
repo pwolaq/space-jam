@@ -57,6 +57,7 @@ namespace UnityStandardAssets.Vehicles.Car
 		public float jumpForce = 40000;
 		public float nitroForce = 40000;
 		public int nitroBottle = 10;
+        public Color color;
 
 
         // Use this for initialization
@@ -73,6 +74,22 @@ namespace UnityStandardAssets.Vehicles.Car
 
             m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl*m_FullTorqueOverAllWheels);
+
+            SetColor();
+        }
+
+        private void SetColor()
+        {
+            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+            {
+                String name = renderer.material.name;
+
+                if ("SkyCarBodyGrey (Instance)".Equals(name))
+                {
+                    renderer.material.color = Color.black;
+                    renderer.material.SetColor("_EmissionColor", color);
+                }
+            }
         }
 
 
