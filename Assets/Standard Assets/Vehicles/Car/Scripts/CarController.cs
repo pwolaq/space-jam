@@ -153,7 +153,6 @@ namespace UnityStandardAssets.Vehicles.Car
 		}
 
 		public void Nitro(float nitro, float footbrake) {
-			Debug.Log (footbrake);
 			if (nitro > 0 && footbrake > 0 && nitroBottle > 0) {
 				m_Rigidbody.AddForce (m_Rigidbody.velocity * 250);
 				nitroBottle -= 2;
@@ -164,9 +163,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
 
         public void Move(float steering, float accel, float footbrake, float handbrake)
-        {	
-			Debug.Log (footbrake);
-			Debug.Log (accel);
+        {
             for (int i = 0; i < 4; i++)
             {
                 Quaternion quat;

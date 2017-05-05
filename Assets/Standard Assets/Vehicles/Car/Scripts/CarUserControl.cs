@@ -10,22 +10,21 @@ namespace UnityStandardAssets.Vehicles.Car
     }
 
     [RequireComponent(typeof (CarController))]
-	public class CarUserControl : MonoBehaviour
+    public class CarUserControl : MonoBehaviour
 	{
         public Player player;
 
-		private string horizontal;
+	    private string horizontal;
         private string vertical;
         private string jump;
         private string nitro;
 
-		private CarController m_Car; // the car controller we want to use
-
+        private CarController m_Car; // the car controller we want to use
 
 		private void Awake()
 		{
-			// get the car controller
-			m_Car = GetComponent<CarController>();
+            // get the car controller
+            m_Car = GetComponent<CarController>();
 
             if (player == Player.A)
             {
@@ -46,20 +45,17 @@ namespace UnityStandardAssets.Vehicles.Car
 
 		private void FixedUpdate()
 		{
-			// pass the input to the car!
-			float h = CrossPlatformInputManager.GetAxis(horizontal);
-			float v = CrossPlatformInputManager.GetAxis(vertical);
-			float j = CrossPlatformInputManager.GetAxis(jump);
-			float n = CrossPlatformInputManager.GetAxis(nitro);
+            // pass the input to the car!
+            float h = CrossPlatformInputManager.GetAxis(horizontal);
+            float v = CrossPlatformInputManager.GetAxis(vertical);
+            float j = CrossPlatformInputManager.GetAxis(jump);
+            float n = CrossPlatformInputManager.GetAxis(nitro);
+
+            //Debug.Log(h + "," + v + "," + j + "," + n);
             
-			#if !MOBILE_INPUT
-			float handbrake = CrossPlatformInputManager.GetAxis("Jump_P1");
-			m_Car.Move(h, v, v, handbrake);
-			m_Car.Jump(j);
-			m_Car.Nitro(n, v);
-			#else
-			m_Car.Move(h, v, v, 0f);
-			#endif
+            m_Car.Move(h, v, v, 0f);
+            m_Car.Jump(j);
+            m_Car.Nitro(n, v);
 		}
 	}
 }
