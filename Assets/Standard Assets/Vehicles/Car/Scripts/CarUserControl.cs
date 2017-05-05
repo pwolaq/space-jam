@@ -4,13 +4,20 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Vehicles.Car
 {
-	[RequireComponent(typeof (CarController))]
+    public enum Player
+    {
+        A, B
+    }
+
+    [RequireComponent(typeof (CarController))]
 	public class CarUserControl : MonoBehaviour
-	{	
-		public string horizontal = "Horizontal_P1";
-		public string vertical = "Vertical_P1";
-		public string jump = "Jump_P1";
-		public string nitro = "Nitro_P1";
+	{
+        public Player player;
+
+		private string horizontal;
+        private string vertical;
+        private string jump;
+        private string nitro;
 
 		private CarController m_Car; // the car controller we want to use
 
@@ -19,6 +26,21 @@ namespace UnityStandardAssets.Vehicles.Car
 		{
 			// get the car controller
 			m_Car = GetComponent<CarController>();
+
+            if (player == Player.A)
+            {
+                horizontal = "Horizontal_P1";
+                vertical = "Vertical_P1";
+                jump = "Jump_P1";
+                nitro = "Nitro_P1";
+            }
+            else
+            {
+                horizontal = "Horizontal_P2";
+                vertical = "Vertical_P2";
+                jump = "Jump_P2";
+                nitro = "Nitro_P2";
+            }
 		}
 
 
