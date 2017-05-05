@@ -50,8 +50,6 @@ namespace UnityStandardAssets.Vehicles.Car
             float v = CrossPlatformInputManager.GetAxis(vertical);
             float j = CrossPlatformInputManager.GetAxis(jump);
             float n = CrossPlatformInputManager.GetAxis(nitro);
-
-            //Debug.Log(h + "," + v + "," + j + "," + n);
             
             m_Car.Move(h, v, v, 0f);
             m_Car.Jump(j);
