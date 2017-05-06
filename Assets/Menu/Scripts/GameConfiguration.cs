@@ -1,26 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using UnityEngine.UI;
 
 public class GameConfiguration : MonoBehaviour {
-	public InputField firstTeamName;
-	public InputField secondTeamName;
-	public InputField maxScore;
-	public GameController gameController;
+	public InputField teamA;
+	public InputField teamB;
+	public InputField score;
+	private GameController gameController;
+
+    public void Awake()
+    {
+        gameController = GameController.instance;
+    }
+
+    public void SetControls()
+    {
+        teamA.text = gameController.nameA;
+        teamB.text = gameController.nameB;
+        score.text = gameController.maxScore.ToString();
+    }
 
 	public void Save() {
-		Debug.Log ("DUPA");
-		Debug.Log (maxScore.text);
-		gameController.BuildGame (
-			CreateTeam(firstTeamName.text),
-			CreateTeam(secondTeamName.text),
-			Int32.Parse(maxScore.text)
-		);
-	}
-
-	private Team CreateTeam(string name) {
-		return new Team (name);
+		gameController.UpdateSettings(teamA.text, teamB.text, Int32.Parse(score.text));
 	}
 }

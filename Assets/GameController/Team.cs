@@ -1,23 +1,21 @@
-﻿using System;
-using UnityEngine;
-
-public class Team {
-	private GameObject goalGate;
+﻿public class Team {
+    public Enums.Team team;
 	private string name;
-	private int scores;
+	private int score;
 
-	public Team (string name) {
+	public Team (string name, Enums.Team team) {
 		this.name = name;
-		this.scores = 0;
+		this.score = 0;
+        this.team = team;
 	}
 
 	public void AddScore () {
-		scores += 1;
+		score += 1;
 	}
 
-	public void AddGoalGate(GameObject goalGate) {
-		goalGate.tag = this.GetHashCode ().ToString ();
-		this.goalGate = goalGate;
-	}
+    public int GetScore()
+    {
+        return score;
+    }
 }
 

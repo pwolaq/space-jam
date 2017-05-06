@@ -4,15 +4,10 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Vehicles.Car
 {
-    public enum Player
-    {
-        A, B
-    }
-
     [RequireComponent(typeof (CarController))]
     public class CarUserControl : MonoBehaviour
 	{
-        public Player player;
+        public Enums.Team team;
 
 	    private string horizontal;
         private string vertical;
@@ -26,7 +21,7 @@ namespace UnityStandardAssets.Vehicles.Car
             // get the car controller
             m_Car = GetComponent<CarController>();
 
-            if (player == Player.A)
+            if (team == Enums.Team.A)
             {
                 horizontal = "Horizontal_P1";
                 vertical = "Vertical_P1";

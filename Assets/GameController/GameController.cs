@@ -1,16 +1,16 @@
 ﻿using UnityEngine.SceneManagement;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-	public GUIText scoreText;
-	private GameSettings gameSettings;
-	public static GameController instance ;
+	private Text scoreText;
+	public static GameController instance;
+    private Team[] teams;
 
-	void Start () {
-		DisplayScore ();
-	}
+    public string nameA = "Team A";
+    public string nameB = "Team B";
+    public int maxScore = 10;
 
 	void Awake() {
 		if (!instance) {
@@ -20,19 +20,37 @@ public class GameController : MonoBehaviour
 		DontDestroyOnLoad(this) ;
 	}
 
-	public void BuildGame(Team teamA, Team teamB, int maxScores) {
-//		teamA.AddGoalGate (goalGateA);
-//		teamB.AddGoalGate (goalGateB);
-		this.gameSettings = new GameSettings (teamA, teamB, maxScores);
-		SceneManager.LoadScene (0);
+    public void SetScoreUI(Text scoreText)
+    {
+        this.scoreText = scoreText;
+        UpdateScore();
+    }
+
+    public void UpdateSettings(string nameA, string nameB, int maxScore)
+    {
+        this.nameA = nameA;
+        this.nameB = nameB;
+        this.maxScore = maxScore;
+    }
+
+	public void StartGame() {
+        Team teamA = new Team(nameA, Enums.Team.A);
+        Team teamB = new Team(nameB, Enums.Team.B);
+
+        teams = new Team[]{ teamA, teamB };
+
+		SceneManager.LoadScene(1);
 	}
 
-	public void UpdateScore(string teamTag) {
-		gameSettings.GetTeam(teamTag).AddScore ();
-		DisplayScore ();
+	public void AddScore(Enums.Team team) {
+        teams[(int) team].AddScore();
+		UpdateScore();
 	}
 
-	public void DisplayScore() {
-		scoreText.text = "0 : 0";
+	public void UpdateScore() {
+        int scoreA = teams[(int) Enums.Team.A].GetScore();
+        int scoreB = teams[(int) Enums.Team.B].GetScore();
+
+        scoreText.text = scoreA + " : " + scoreB;
 	}
 }

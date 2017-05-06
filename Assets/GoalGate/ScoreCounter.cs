@@ -1,16 +1,21 @@
 ﻿using UnityEngine;
 
 public class ScoreCounter : MonoBehaviour {
-	public GameController gameController = GameController.instance;
+    public Enums.Team oppositeTeam;
 
+	private GameController gameController;
 	private bool shouldUpdateScore = true;
+
+    void Start()
+    {
+        gameController = GameController.instance;
+    }
 
 	void OnTriggerStay(Collider collisionInfo)
     {
 		if (collisionInfo.CompareTag("Ball") && shouldUpdateScore)
         {
-			Debug.Log (gameObject.tag);
-			gameController.UpdateScore(gameObject.tag);
+			gameController.AddScore(oppositeTeam);
 			shouldUpdateScore = false;
 		}
 	}
