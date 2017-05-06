@@ -56,6 +56,7 @@ namespace UnityStandardAssets.Vehicles.Car
         public float AccelInput { get; private set; }
 		public float jumpForce = 40000;
 		public float nitroForce = 40000;
+		public float reactionForce = 100;
 		public int nitroBottle = 10;
         public Color color;
 
@@ -77,6 +78,15 @@ namespace UnityStandardAssets.Vehicles.Car
 
             SetColor();
         }
+			
+
+		void OnCollisionEnter (Collision col)
+		{
+			if(col.gameObject.tag == "Player")
+			{
+				gameObject.GetComponent<Rigidbody>().AddForce (reactionForce * col.relativeVelocity, ForceMode.Impulse);
+			}
+		}
 
         private void SetColor()
         {
