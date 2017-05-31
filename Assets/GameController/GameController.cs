@@ -1,12 +1,14 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class GameController : MonoBehaviour
 {
 	private Text scoreText;
 	public static GameController instance;
     private Team[] teams;
+    private bool shouldUpdateScore = true;
 
     public string nameA = "Team A";
     public string nameB = "Team B";
@@ -43,11 +45,38 @@ public class GameController : MonoBehaviour
 	}
 
 	public void AddScore(Enums.Team team) {
-        teams[(int) team].AddScore();
-		UpdateScore();
+        if (shouldUpdateScore)
+        {
+            shouldUpdateScore = false;
+            teams[(int)team].AddScore();
+            UpdateScore();
+            StartCoroutine(WaitAfterGoal());
+
+        }
 	}
 
-	public void UpdateScore() {
+    IEnumerator WaitAfterGoal()
+    {
+        yield return new WaitForSeconds(5);
+        Reset();
+    }
+
+    private void Reset()
+    {
+        shouldUpdateScore = true;
+
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            PositionReset car = player.GetComponent<PositionReset>();
+            car.Reset();
+        }
+
+        GameObject ball = GameObject.FindGameObjectWithTag("Ball");
+        PositionReset ballReset = ball.GetComponent<PositionReset>();
+        ballReset.Reset();
+    }
+
+    public void UpdateScore() {
         int scoreA = teams[(int) Enums.Team.A].GetScore();
         int scoreB = teams[(int) Enums.Team.B].GetScore();
 

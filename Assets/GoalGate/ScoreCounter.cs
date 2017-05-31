@@ -4,7 +4,6 @@ public class ScoreCounter : MonoBehaviour {
     public Enums.Team oppositeTeam;
 
 	private GameController gameController;
-	private bool shouldUpdateScore = true;
 
     void Start()
     {
@@ -13,10 +12,9 @@ public class ScoreCounter : MonoBehaviour {
 
 	void OnTriggerStay(Collider collisionInfo)
     {
-		if (collisionInfo.CompareTag("Ball") && shouldUpdateScore)
+		if (collisionInfo.CompareTag("Ball"))
         {
 			gameController.AddScore(oppositeTeam);
-			shouldUpdateScore = false;
 		}
 	}
 }
