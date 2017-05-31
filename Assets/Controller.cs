@@ -8,9 +8,23 @@ public class Controller : MonoBehaviour {
     public Text nameB;
     public Text info;
     public GameObject infoDialog;
+    public GameObject nitroA;
+    public GameObject nitroB;
+
+    private Slider nitroSliderA;
+    private Slider nitroSliderB;
 
 	void Start () {
         GameController.instance.SetUI(this);
+        nitroSliderA = nitroA.GetComponent<Slider>();
+        nitroSliderB = nitroB.GetComponent<Slider>();
+    }
+
+    public void SetNitro(float val, float max, Enums.Team team)
+    {
+        Slider slider = team == Enums.Team.A ? nitroSliderA : nitroSliderB;
+        slider.maxValue = max;
+        slider.value = val;
     }
 
     public void SetTeamA(string name)

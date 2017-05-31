@@ -1,6 +1,5 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class GameController : MonoBehaviour
@@ -26,6 +25,11 @@ public class GameController : MonoBehaviour
     {
         ui = uiCtrl;
         UpdateScore();
+    }
+
+    public void UpdateNitro(float val, float max, Enums.Team team)
+    {
+        ui.SetNitro(val, max, team);
     }
 
     public void UpdateSettings(string nameA, string nameB, int maxScore)
