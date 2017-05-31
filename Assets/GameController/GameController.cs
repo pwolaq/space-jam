@@ -5,7 +5,7 @@ using System.Collections;
 
 public class GameController : MonoBehaviour
 {
-	private Text scoreText;
+    private Controller ui;
 	public static GameController instance;
     private Team[] teams;
     private bool shouldUpdateScore = true;
@@ -22,9 +22,9 @@ public class GameController : MonoBehaviour
 		DontDestroyOnLoad(this) ;
 	}
 
-    public void SetScoreUI(Text scoreText)
+    public void SetUI(Controller uiCtrl)
     {
-        this.scoreText = scoreText;
+        ui = uiCtrl;
         UpdateScore();
     }
 
@@ -47,10 +47,21 @@ public class GameController : MonoBehaviour
 	public void AddScore(Enums.Team team) {
         if (shouldUpdateScore)
         {
+            Team scored = teams[(int)team];
             shouldUpdateScore = false;
-            teams[(int)team].AddScore();
+            scored.AddScore();
             UpdateScore();
-            StartCoroutine(WaitAfterGoal());
+
+            if (scored.GetScore() >= maxScore)
+            {
+                ui.DisplayInfo(scored.GetName() + " wins!");
+                StartCoroutine(WaitAfterFinish());
+            }
+            else
+            {
+                ui.DisplayInfo(scored.GetName() + " scores!");
+                StartCoroutine(WaitAfterGoal());
+            }
 
         }
 	}
@@ -59,6 +70,14 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         Reset();
+        ui.HideInfo();
+    }
+
+    IEnumerator WaitAfterFinish()
+    {
+        yield return new WaitForSeconds(10);
+        ui.HideInfo();
+        SceneManager.LoadScene(0);
     }
 
     private void Reset()
@@ -79,7 +98,6 @@ public class GameController : MonoBehaviour
     public void UpdateScore() {
         int scoreA = teams[(int) Enums.Team.A].GetScore();
         int scoreB = teams[(int) Enums.Team.B].GetScore();
-
-        scoreText.text = scoreA + " : " + scoreB;
+        ui.UpdateScore(scoreA, scoreB);
 	}
 }

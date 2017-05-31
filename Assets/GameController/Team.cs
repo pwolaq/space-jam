@@ -17,5 +17,10 @@
     {
         return score;
     }
+
+    public string GetName()
+    {
+        return name;
+    }
 }
 
